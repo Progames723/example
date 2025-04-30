@@ -1,0 +1,26 @@
+modLoader = "javafml"
+loaderVersion = "*"
+license = "LGPLv3"
+issueTrackerURL="https://Progames723/Example/issues"
+
+[[mods]]
+modId = "${id}"
+version = "${version}"
+displayName = "${name}"
+authors = "Progames723"
+description = ""
+logoFile = "assets/example/icon.png"
+logoBlur = false
+
+[[dependencies."${id}"]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft}"
+ordering = "NONE"
+side = "BOTH"
+
+[[mixins]]
+config = "example-common.mixins.json"
+
+[[mixins]]
+config = "example-neoforge.mixins.json"

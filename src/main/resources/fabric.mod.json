@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "",
+  "authors": [
+    "Progames723"
+  ],
+  "contact": {
+  },
+  "license": "LGPLv3",
+  "icon": "assets/${id}/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.progames723.example.platforms.fabric.ExampleFabric"
+    ]
+  },
+  "mixins": [
+    "example-common.mixins.json",
+    "example-fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.9",
+    "minecraft": "${minecraft}"
+  }
+}

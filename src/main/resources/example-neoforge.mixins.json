@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "package": "dev.progames723.example.platforms.neoforge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
