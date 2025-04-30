@@ -16,7 +16,7 @@ jobs:
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: generate wrapper for some reason
-        run: ./gradlew wrapper
+        run: gradle wrapper
       - name: build
         run: ./gradlew chiseledBuild
       - name: upload build artifacts
