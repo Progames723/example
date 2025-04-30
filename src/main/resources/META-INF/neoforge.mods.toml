@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "*"
-license = "LGPLv3"
+license = "GNU GPL 3.0"
 issueTrackerURL="https://Progames723/Example/issues"
 
 [[mods]]
