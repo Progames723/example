@@ -23,8 +23,7 @@ jobs:
             "loom cache"
             "loom-cache"
           path: |
-            ~/.gradle/loom-cache
-            ~/gradle/wrapper
+            .gradle/loom-cache
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: generate wrapper for some reason
