@@ -13,14 +13,29 @@ jobs:
         with:
           java-version: 21
           distribution: 'temurin'
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        id: arch-loom-cache
+        with:
+          fail-on-cache-miss: false
+          key: "arch loom cache"
+          restore-keys: |
+            "loom cache"
+            "loom-cache"
+          path: |
+            ~/.gradle/loom-cache
+            ~/gradle/wrapper
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: generate wrapper for some reason
-        run: gradle wrapper
+        if: ${{ steps.arch-loom-cache.outputs.cache-hit != 'true' }}
+        continue-on-error: true
+        run: ./gradlew wrapper
       - name: build
         run: ./gradlew chiseledBuild
       - name: upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Artifacts
+          retention-days: 2
+          name: build-artifacts
           path: build/libs/
