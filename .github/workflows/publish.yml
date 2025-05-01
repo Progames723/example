@@ -24,6 +24,7 @@ jobs:
             "arch loom cache"
           path: |
             .gradle
+            ~/.gradle
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: generate wrapper for some reason
