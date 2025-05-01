@@ -1,6 +1,23 @@
 #wow is that a workflow
 name: build mod
-on: [pull_request, push, workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "buildSrc/**"
+      - "versions/**"
+      - "build.gradle.kts"
+      - "settings.gradle.kts"
+      - "gradle.properties"
+  push:
+    paths:
+      - "src/**"
+      - "buildSrc/**"
+      - "versions/**"
+      - "build.gradle.kts"
+      - "settings.gradle.kts"
+      - "gradle.properties"
+  workflow_dispatch:
 
 jobs:
   build:
