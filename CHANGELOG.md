@@ -1,4 +1,2 @@
-# Example changelog that i totally wont forget about
-
-# Version 1.0
+# Version 0.1
 initial version

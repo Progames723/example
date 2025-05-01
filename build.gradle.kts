@@ -78,6 +78,7 @@ loom {
         }
     }
     if (loader == "forge") {
+        forge.convertAccessWideners = true
         forge.mixinConfigs(
             "example-common.mixins.json",
             "example-forge.mixins.json",
@@ -85,7 +86,8 @@ loom {
     }
 }
 
-
+//yes this file doesnt exist so you'll have to create it
+//i might make a workflow for this later
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
@@ -96,14 +98,13 @@ publishMods {
     val modrinthToken = localProperties.getProperty("publish.modrinthToken", "")
     val curseforgeToken = localProperties.getProperty("publish.curseforgeToken", "")
 
-
     file = project.tasks.remapJar.get().archiveFile
     dryRun = modrinthToken == null || curseforgeToken == null
 
     displayName = "${mod.name} ${loader.replaceFirstChar { it.uppercase() }} ${property("mod.mc_title")}-${mod.version}"
     version = mod.version
     changelog = rootProject.file("CHANGELOG.md").readText()
-    type = BETA
+    type = BETA//TODO change this
 
     modLoaders.add(loader)
 
@@ -116,7 +117,6 @@ publishMods {
             requires("fabric-api")
         }
     }
-
     curseforge {
         projectId = property("publish.curseforge").toString()
         accessToken = curseforgeToken.toString()
@@ -148,6 +148,7 @@ tasks.remapJar {
     injectAccessWidener = true
     input = tasks.shadowJar.get().archiveFile
     archiveClassifier = null
+    atAccessWideners.add("example.accesswidener")
     dependsOn(tasks.shadowJar)
 }
 

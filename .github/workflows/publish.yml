@@ -1,0 +1,52 @@
+on: [ workflow_dispatch ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      modrinthToken: ${{ secrets.ModrinthToken }}
+      curseforgeToken: ${{ secrets.CurseforgeToken }}
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - name: setup jdk 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        id: arch-loom-cache
+        with:
+          fail-on-cache-miss: false
+          key: "arch loom cache"
+          restore-keys: |
+            "loom cache"
+            "loom-cache"
+          path: |
+            .gradle/loom-cache
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
+      - name: generate wrapper for some reason
+        if: ${{ steps.arch-loom-cache.outputs.cache-hit != 'true' }}
+        continue-on-error: true
+        run: ./gradlew wrapper
+      - name: build
+        run: ./gradlew chiseledBuild
+      - name: create local.properties
+        run: |
+          touch local.properties
+          echo "publish.modrinthToken=${modrinthToken}" >> local.properties
+          echo "publish.curseforgeToken=${curseforgeToken}" >> local.properties
+      - name: publish mods
+        id: publish
+        if: ${{ env.curseforgeToken != '' && env.modrinthToken != '' }}
+        run: ./gradlew publishMods
+      - name: publish to Modrinth
+        if: ${{ steps.publish.conclusion == 'skipped' && env.modrinthToken != '' }}
+        run: ./gradlew publishModrinth
+      - name: publish to Curseforge
+        if: ${{ steps.publish.conclusion == 'skipped' && env.curseforgeToken != '' }}
+        run: ./gradlew publishModrinth
+      - name: delete local.properties
+        run : rm -f local.properties
