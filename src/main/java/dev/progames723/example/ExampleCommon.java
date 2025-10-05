@@ -8,6 +8,12 @@ public class ExampleCommon {
 	public static final Logger LOGGER = LoggerFactory.getLogger("Example");
 
 	public static void init() {
-		//you could add some kind of platform specific class and use it here but i wont add it
+		//? if fabric {
+		LOGGER.info("fabric");
+		//?} else if forge {
+		/*LOGGER.info("forge");
+		*///?} else if neoforge {
+		/*LOGGER.info("neoforge");
+		*///?}
 	}
 }
